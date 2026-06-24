@@ -21,4 +21,12 @@ namespace EmployeeTrainingAPI.DTOs
         [Required, MaxLength(300)]
         public string? CompletionStatus { get; set; }
     }
+
+    public class UpdateEmployeeCourseDto
+    {
+        [Required]
+        public DateTime RegistrationDate { get; set; }
+        [Required, MaxLength(300)]
+        public string? CompletionStatus { get; set; }
+    }
 }

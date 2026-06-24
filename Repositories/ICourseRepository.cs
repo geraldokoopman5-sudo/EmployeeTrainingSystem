@@ -6,9 +6,9 @@ namespace EmployeeTrainingAPI.Repositories
     public interface ICourseRepository
     {
         Task<IEnumerable<Course>> GetAllCoursesAsync();
-        Task<IEnumerable<Course>> GetCourseById(int id);
-        Task<IEnumerable<Course>>AddCourse(CreateCourseDto dto);
-        Task<IEnumerable<Course>> UpdateCourse(int id);
-        Task<IEnumerable<Course>> SoftDeleteCourse(int id);
+        Task<Course> GetCourseById(int id);
+        Task<Course> AddCourse(Course course);
+        Task<Course> UpdateCourse(Course course);
+        Task<bool> SoftDeleteCourse(int id);
     }
 }
