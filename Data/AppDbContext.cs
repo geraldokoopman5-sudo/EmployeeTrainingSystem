@@ -21,7 +21,15 @@ namespace EmployeeTrainingAPI.Data
             .HasIndex(e => e.Email)
             .IsUnique();
 
+            modelBuilder.Entity<EmployeeCourse>()
+            .HasOne(ec => ec.Employee)
+            .WithMany(e => e.EmployeeCourses)
+            .HasForeignKey(ec => ec.EmployeeId);
 
+            modelBuilder.Entity<EmployeeCourse>()
+            .HasOne(ec => ec.Course)
+            .WithMany(c => c.EmployeeCourses)
+            .HasForeignKey(ec => ec.CourseId);
 
         }
             

@@ -6,14 +6,11 @@ namespace EmployeeTrainingAPI.DTOs
 {
     public class EmployeeCourseDto
     {
-        [Key, Required]
-        public int RegistrationId { get; set; }
+        [Required]
+        public int EmployeeId { get; set; }
 
-        public int EmployeeId { get; set; }        
-        public Employee? Employee { get; set; }   
-
-        public int CourseId { get; set; }          
-        public Course? Course { get; set; }        
+        [Required]
+        public int CourseId { get; set; }
 
         [Required]
         public DateTime RegistrationDate { get; set; }
@@ -25,8 +22,7 @@ namespace EmployeeTrainingAPI.DTOs
     public class UpdateEmployeeCourseDto
     {
         [Required]
-        public DateTime RegistrationDate { get; set; }
-        [Required, MaxLength(300)]
+
         public string? CompletionStatus { get; set; }
     }
 }

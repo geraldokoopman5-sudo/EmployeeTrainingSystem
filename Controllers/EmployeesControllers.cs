@@ -10,7 +10,7 @@ namespace EmployeeTrainingAPI.Controllers
     [ApiController]
     public class EmployeesControllers : ControllerBase
     {
-        private IEmployeeService _employeeService;
+        private readonly IEmployeeService _employeeService;
 
         public EmployeesControllers(IEmployeeService employeeService)
         {
@@ -18,10 +18,19 @@ namespace EmployeeTrainingAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEmployee(Employee employee)
+        public async Task<IActionResult> AddEmployee(CreateEmployeeDto dto)  // ✅ DTO not model
         {
+            var employee = new Employee
+            {
+                FullName = dto.FullName,
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber,
+                Department = dto.Department,
+                HireDate = dto.HireDate
+            };
+
             var result = await _employeeService.AddEmployee(employee);
-            return Ok("New employee Regsitered");
+            return Ok(result);
         }
 
         [HttpGet]
@@ -30,27 +39,39 @@ namespace EmployeeTrainingAPI.Controllers
             var employees = await _employeeService.GetAllEmpployeesAsync();
             return Ok(employees);
         }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult>GetEmployeesById(int id)
+        public async Task<IActionResult> GetEmployeeById(int id)
         {
             var employee = await _employeeService.GetEmployeesById(id);
-            if (employee == null) return NotFound("There are no Employees yet");
+            if (employee == null) return NotFound("Employee not found");
             return Ok(employee);
         }
-        [HttpPut]
-        public async Task<IActionResult>UpdateEmployee(Employee employee)
-        {
-            var employeeUpdate = await _employeeService.UpdateEmployee(employee);
-            if (employee == null) return NotFound("Employee Not found");
 
+        [HttpPut("{id}")]  
+        public async Task<IActionResult> UpdateEmployee(int id, UpdateEmployeeDto dto)
+        {
+            var employee = new Employee
+            {
+                EmployeeId = id,
+                FullName = dto.FullName,
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber,
+                Department = dto.Department,
+                HireDate = dto.HireDate
+            };
+
+            var updated = await _employeeService.UpdateEmployee(employee);
+            if (updated == null) return NotFound("Employee not found");  
             return Ok("Employee details updated!");
         }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult>SoftDeleteEmployee(int id)
+        public async Task<IActionResult> SoftDeleteEmployee(int id)
         {
-            var deleted = await _employeeService.SoftDeleteEmployee(id);
-            if (deleted == null) NotFound("Employee could not be found");
-            return Ok("Employee deleted successfully");
+            var result = await _employeeService.SoftDeleteEmployee(id);
+            return Ok(result);  
         }
     }
 }
+

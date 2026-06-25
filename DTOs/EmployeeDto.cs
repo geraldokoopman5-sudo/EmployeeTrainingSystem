@@ -4,9 +4,6 @@ namespace EmployeeTrainingAPI.DTOs
 {
     public class CreateEmployeeDto
     {
-        [Key, Required]
-        public int EmployeeId { get; set; }
-
         [Required, MaxLength(100)]
         public string? FullName { get; set; }
 
@@ -21,8 +18,6 @@ namespace EmployeeTrainingAPI.DTOs
 
         [Required]
         public DateTime HireDate { get; set; }
-
-        public bool IsDeleted { get; set; } = false;
     }
 
     public class UpdateEmployeeDto
