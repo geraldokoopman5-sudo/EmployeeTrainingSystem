@@ -6,7 +6,7 @@ namespace EmployeeTrainingAPI.Services.Interfaces
     {
         Task<IEnumerable<Employee>> GetAllEmpployeesAsync();
         Task<Employee> GetEmployeesById(int id);
-        Task<Employee> AddEmployee(Employee employee);
+        Task<string> AddEmployee(Employee employee);
         Task<Employee> UpdateEmployee(Employee employee);
         Task<string> SoftDeleteEmployee(int id);
     }
