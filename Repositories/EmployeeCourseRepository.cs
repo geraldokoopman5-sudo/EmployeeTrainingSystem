@@ -22,9 +22,14 @@ namespace EmployeeTrainingAPI.Repositories
             return null;
         }
 
-        public Task<string> DeleteEmployeeCourse(int id)
+        public async Task<string> DeleteEmployeeCourse(int id)
         {
-            throw new NotImplementedException();
+            var EmployeeCourse = await _context.EmployeeCourses.FindAsync(id);
+
+            _context.EmployeeCourses.Remove(EmployeeCourse);
+            await _context.SaveChangesAsync();
+
+            return "Employee Course Deleted Sucessfully";
         }
 
         public async Task<IEnumerable<EmployeeCourse>> GetAllEmployeeCoursesAsync()
@@ -39,9 +44,14 @@ namespace EmployeeTrainingAPI.Repositories
             return course;
         }
 
-        public Task<EmployeeCourse> UpdateEmployeeCourse(int id)
+        public async Task<EmployeeCourse?> UpdateEmployeeCourse(EmployeeCourse employeecourse)
         {
-            throw new NotImplementedException();
+            var EmployeeCourse = await _context.EmployeeCourses.FindAsync(employeecourse.RegistrationId);
+
+            EmployeeCourse?.CompletionStatus = employeecourse.CompletionStatus;
+            await _context.SaveChangesAsync();
+
+            return EmployeeCourse;
         }
     }
 }

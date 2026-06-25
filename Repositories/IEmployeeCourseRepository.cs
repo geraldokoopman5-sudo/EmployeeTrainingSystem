@@ -8,7 +8,7 @@ namespace EmployeeTrainingAPI.Repositories
         Task<IEnumerable<EmployeeCourse>> GetAllEmployeeCoursesAsync();
         Task<EmployeeCourse> GetEmployeeCourseById(int id);
         Task<EmployeeCourse> CreateEmployeeCourse(EmployeeCourse employeeCourse);
-        Task<EmployeeCourse> UpdateEmployeeCourse(int id);
+        Task<EmployeeCourse> UpdateEmployeeCourse(EmployeeCourse employeeCourse);
         Task<string> DeleteEmployeeCourse(int id);
     }
 }
