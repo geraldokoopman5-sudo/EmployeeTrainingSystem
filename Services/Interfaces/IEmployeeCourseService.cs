@@ -8,6 +8,6 @@ namespace EmployeeTrainingAPI.Services.Interfaces
         Task<EmployeeCourse> GetEmployeeCourseById(int id);
         Task<EmployeeCourse> AddEmployeeCourse(EmployeeCourse employeeCourse);
         Task<EmployeeCourse> UpdateEmployeeCourse(EmployeeCourse employeeCourse);
-        Task<string> DeleteCourse(int id)l;
+        Task<string> DeleteCourse(int id);
     }
 }

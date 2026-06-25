@@ -53,6 +53,7 @@ namespace EmployeeTrainingAPI.Services
             employed.PhoneNumber = employee.PhoneNumber;
             employed.Department = employee.Department;
 
+            await _context.SaveChangesAsync();
             return employed;
         }
 

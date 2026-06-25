@@ -1,11 +1,12 @@
 ﻿using EmployeeTrainingAPI.Data;
 using EmployeeTrainingAPI.Models;
 using EmployeeTrainingAPI.Repositories;
+using EmployeeTrainingAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeTrainingAPI.Services
 {
-    public class EmployeeCourseService : IEmployeeCourseRepository
+    public class EmployeeCourseService : IEmployeeCourseService
     {
         private readonly AppDbContext _context;
 
@@ -14,15 +15,16 @@ namespace EmployeeTrainingAPI.Services
             _context = context;
         }
 
-        public async Task<EmployeeCourse> CreateEmployeeCourse(EmployeeCourse employeeCourse)
+        public async Task<EmployeeCourse> AddEmployeeCourse(EmployeeCourse employeeCourse)
         {
             await _context.EmployeeCourses.AddAsync(employeeCourse);
             await _context.SaveChangesAsync();
 
             return employeeCourse;
+            
         }
 
-        public async Task<string> DeleteEmployeeCourse(int id)
+        public async Task<string> DeleteCourse(int id)
         {
             var EmployeeCourseExist = await _context.EmployeeCourses.FindAsync(id);
 
@@ -30,12 +32,14 @@ namespace EmployeeTrainingAPI.Services
             await _context.SaveChangesAsync();
 
             return "Employee Course Deleted Successfully";
+         
         }
 
-        public async Task<IEnumerable<EmployeeCourse>> GetAllEmployeeCoursesAsync()
+        public async Task<IEnumerable<EmployeeCourse>> GetAllEmployeeCourseAsync()
         {
             return await _context.EmployeeCourses.ToListAsync();
         }
+
 
         public async Task<EmployeeCourse?> GetEmployeeCourseById(int id)
         {

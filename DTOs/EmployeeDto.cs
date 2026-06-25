@@ -44,4 +44,4 @@ namespace EmployeeTrainingAPI.DTOs
         [Required]
         public bool IsDeleted { get; set; }
     }
-}}
+}

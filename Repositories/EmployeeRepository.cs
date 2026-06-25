@@ -18,7 +18,7 @@ namespace EmployeeTrainingAPI.Repositories
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            return await _context.Employees.Where(e => e.IsDeleted).ToListAsync();
+            return await _context.Employees.Where(e => !e.IsDeleted).ToListAsync();  
         }
 
         public async Task<Employee> GetEmployeeById(int id)

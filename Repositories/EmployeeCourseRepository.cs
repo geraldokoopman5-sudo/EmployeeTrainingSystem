@@ -10,16 +10,9 @@ namespace EmployeeTrainingAPI.Repositories
 
         public async Task<EmployeeCourse?> CreateEmployeeCourse(EmployeeCourse employeeCourse)
         {
-            var newEmployeeCourse = await _context.EmployeeCourses.FindAsync(employeeCourse.EmployeeId);
-
-            if (newEmployeeCourse != null)
-            {
-                _context.EmployeeCourses.Add(newEmployeeCourse);
-                _context.SaveChanges();
-                return newEmployeeCourse;
-            }
-
-            return null;
+            await _context.EmployeeCourses.AddAsync(employeeCourse);
+            await _context.SaveChangesAsync();
+            return employeeCourse;
         }
 
         public async Task<string> DeleteEmployeeCourse(int id)
@@ -49,6 +42,8 @@ namespace EmployeeTrainingAPI.Repositories
             var EmployeeCourse = await _context.EmployeeCourses.FindAsync(employeecourse.RegistrationId);
 
             EmployeeCourse?.CompletionStatus = employeecourse.CompletionStatus;
+            if (EmployeeCourse != null)
+                EmployeeCourse.CompletionStatus = employeecourse.CompletionStatus;
             await _context.SaveChangesAsync();
 
             return EmployeeCourse;

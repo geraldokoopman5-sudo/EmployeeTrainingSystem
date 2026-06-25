@@ -1,3 +1,10 @@
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using EmployeeTrainingAPI.Data;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using EmployeeTrainingAPI.Services;
+using Microsoft.EntityFrameworkCore;
+using EmployeeTrainingAPI.Services.Interfaces;
 
 namespace EmployeeTrainingAPI
 {
@@ -8,17 +15,26 @@ namespace EmployeeTrainingAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+           
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefualtConnection")));
+
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IEmployeeCourseService, EmployeeCourseService>();
+
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
